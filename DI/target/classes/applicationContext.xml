@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- 매개변수가 없는 생성자(Default Constructor)를 이용해서 bean을 생성 -->
+	<!-- <bean class="domain.Good" id="good"/>  -->
+	
+	<!-- 매개변수가 있는 생성자를 이용 -->
+	<!-- <bean class="domain.Good" id="good">
+		<constructor-arg value="1"   />
+		<constructor-arg value="수박" />
+	</bean>
+	-->
+	
+	<!-- 다른 bean의 id 설정 -->
+	<!-- <bean class="java.lang.String" id="name">
+		<constructor-arg value="무화과" />
+	</bean>
+	<bean class="domain.Good" id="good">
+		<constructor-arg value="1"   />
+		<constructor-arg>
+			<ref bean = "name" />
+		</constructor-arg>
+	</bean>
+	-->
+	
+	<!-- 프로퍼티를 이용한 의존성 주입 -->
+	<bean class="java.lang.String" id="name">
+		<constructor-arg value="오렌지" />
+	</bean>
+	<!-- 
+	<bean class="domain.Good" id="good">
+  		<property name="num" value="3"/>
+  		<property name="name">
+  			<ref bean="name" />
+  		</property>
+	</bean>
+	 -->
+	 
+	 <!-- p Namespace 이용 -->
+	<bean class="domain.Good" id="good" p:num="5" p:name-ref="name"/>
+	
+	<context:annotation-config />
+	<context:component-scan base-package="controller, dao, service" />
+</beans>
