@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD: XML로 작성한 내용을 해석하는 위치를 설정 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="good">
+	<!-- goods 테이블의 전체 데이터를 가져오는 SQL id는 구별하기 위한 이름
+	parameterType은 where절에 대입할 파라미터 자료형
+	resultType은 select 절의 내용을 전부 저장할 수 있는 자료형 -->
+	
+	<!-- 파라미터 없이 전체 데이터를 읽어오는 SQL : 전체보기 -->
+	<select id="allgood" resultType="mybatis.domain.Good">
+		select * from goods
+	</select>
+	
+	<!-- code를 가지고 하나의 데이터를 읽어오는 SQL : 상세보기 -->
+	<select id="getgood" parameterType="java.lang.Integer" resultType="mybatis.domain.Good">
+		select * from goods where code= #{code}
+	</select>
+	
+	<!-- 데이터를 삽입하는 SQL -->
+	<!-- 
+	<insert id="insertgood" parameterType="mybatis.domain.Good">
+		insert into goods(code,name,regdate) values(#{code},#{name},#{regdate})
+	</insert>
+	 -->
+	 
+	<!-- 데이터를 삽입하는 SQL (프로시저를 이용한 작업)  -->
+	<insert id="insertgood" parameterType="mybatis.domain.Good" statementType="CALLABLE" >
+		{call insertgood(#{code}, #{name}, #{regdate})}
+	</insert>
+	
+	<!-- 데이터를 수정하는 SQL -->
+	<!-- 기본키(code)를 가지고 데이터를 가져와서 나머지 컬럼의 값을 수정 -->
+	<update id="updategood" parameterType="mybatis.domain.Good">
+		update goods set name = #{name}, regdate = #{regdate} where code = #{code}
+	</update>
+	
+	<!-- 데이터를 삭제하는 SQL -->
+	<delete id="deletegood" parameterType="java.lang.Integer">
+		delete from goods where code = #{code}
+	</delete>
+	
+	<!-- name에 포함된 데이터를 검색하는 SQL -->
+	<select id="searchname" parameterType="java.lang.String" resultType="mybatis.domain.Good">
+		select * from goods where name like '%' || #{name} || '%'
+	</select>
+</mapper>
