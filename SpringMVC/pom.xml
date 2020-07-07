@@ -8,12 +8,14 @@
 	<name>SpringMVC</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<!-- lombok - DTO를 편리하게 만드는 의존성 -->
@@ -21,6 +23,7 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.8</version>
 		</dependency>
+		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -34,6 +37,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
