@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 스프링 MVC Project의 어노테이션을 사용할 수 있도록 해주는 설정  -->
+	<annotation-driven />
+
+	<!-- 캐싱하는 자원의 경로를 설정 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!--  출력할 뷰 파일의 위치를 설정 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 객체를 자동 생성하는 패키지 경로를 설정  -->
+	<context:component-scan base-package="naver.rlgns1129.oracleserver" />
+	
+	<!-- MyBatis 트랜잭션 관련 bean -->
+	<beans:bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<tx:annotation-driven 
+		transaction-manager="transactionManager"/>
+	
+	<!-- Controller가 처리하지 못하는 요청은 WAS가 처리하도록 설정 -->
+	<default-servlet-handler/>
+	
+	<!-- 파일 업로드 설정 -->
+	<beans:bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</beans:bean>
+	
+	
+</beans:beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="item">
+  
+  <!-- 출력할 데이터 번호를 받아서 item 테이블에서 
+  itemid의 내림차순 정렬을 수행할 데이터 가져오기 -->
+  <select id="list" 
+  	parameterType="java.util.Map" resultType="naver.rlgns1129.oracleserver.domain.Item">
+  select itemid,itemname,price,description,pictureurl
+  from (select rownum rnum, itemid, itemname, 
+  	price, description, pictureurl 
+  		from(select * from item order by itemid desc
+  	))
+  where rnum &gt;= #{start} and rnum &lt;= #{end}	
+  </select>
+  
+  <!-- 상세 보기를 위한 메소드 -->
+  <select id="detail" parameterType="java.lang.Integer" resultType="naver.rlgns1129.oracleserver.domain.Item">
+  select itemid,itemname,price,description,pictureurl
+  from item
+  where itemid = #{itemid}	
+  </select>
+  
+  
+  </mapper>
