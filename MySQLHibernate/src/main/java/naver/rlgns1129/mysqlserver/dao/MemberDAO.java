@@ -21,7 +21,6 @@ public class MemberDAO {
 	}
 	
 	// nickname 중복검사를 위한 메소드
-	// email 중복검사를 위한 메소드
 	public List<String> nicknameCheck(String nickname){
 		List<String> list = sessionFactory.getCurrentSession().createNativeQuery("select nickname from member where nickname = \'" + nickname + "\'").getResultList();
 			
@@ -40,7 +39,7 @@ public class MemberDAO {
 		List<Member> list = sessionFactory.getCurrentSession().createNativeQuery("select nickname, pw, email, profile from member where nickname= \'" + nickname + "\'", Member.class).getResultList();
 	
 		return list;
-	}
+	} 
 		
 	//회원정보를 수정하는 메소드
 	public void update(Member member) {
